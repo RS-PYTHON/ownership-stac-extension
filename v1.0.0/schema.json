@@ -1,0 +1,174 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://rs-python.github.io/ownership-stac-extension/v1.0.0/schema.json#",
+  "title": "Ownership Extension",
+  "description": "STAC Ownership Extension for STAC Items and STAC Collections.",
+  "oneOf": [
+    {
+      "$comment": "This is the schema for STAC Items.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/stac_extensions"
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "properties",
+            "assets"
+          ],
+          "properties": {
+            "type": {
+              "const": "Feature"
+            },
+            "properties": {
+              "allOf": [
+                {
+                  "$comment": "Require fields here for Item Properties.",
+                  "required": [
+                    "owner"
+                  ]
+                },
+                {
+                  "$ref": "#/definitions/fields"
+                }
+              ]
+            },
+            "assets": {
+              "$comment": "This validates the fields in Item Assets, but does not require them.",
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/fields"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$comment": "This is the schema for STAC Collections.",
+      "type": "object",
+      "allOf": [
+        {
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "const": "Collection"
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/stac_extensions"
+        }
+      ],
+      "anyOf": [
+        {
+          "$comment": "This is the schema for the top-level fields in a Collection.",
+          "allOf": [
+            {
+              "$comment": "Require fields here for Collections (top-level).",
+              "required": [
+                "owner"
+              ]
+            },
+            {
+              "$ref": "#/definitions/fields"
+            }
+          ]
+        },
+        {
+          "$comment": "This validates the fields in Collection Assets, but does not require them.",
+          "required": [
+            "assets"
+          ],
+          "properties": {
+            "assets": {
+              "type": "object",
+              "not": {
+                "additionalProperties": {
+                  "not": {
+                    "allOf": [
+                      {
+                        "$ref": "#/definitions/require_any_field"
+                      },
+                      {
+                        "$ref": "#/definitions/fields"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "$comment": "This is the schema for the fields in Item Asset Definitions. It doesn't require any fields.",
+          "required": [
+            "item_assets"
+          ],
+          "properties": {
+            "item_assets": {
+              "type": "object",
+              "not": {
+                "additionalProperties": {
+                  "not": {
+                    "allOf": [
+                      {
+                        "$ref": "#/definitions/require_any_field"
+                      },
+                      {
+                        "$ref": "#/definitions/fields"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "$comment": "This is the schema for the fields in Summaries. By default, only checks the existence of the properties, but not the schema of the summaries.",
+          "required": [
+            "summaries"
+          ],
+          "properties": {
+            "summaries": {
+              "$ref": "#/definitions/require_any_field"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "stac_extensions": {
+      "type": "object",
+      "required": [
+        "stac_extensions"
+      ],
+      "properties": {
+        "stac_extensions": {
+          "type": "array",
+          "contains": {
+            "const": "https://rs-python.github.io/ownership-stac-extension/v1.0.0/schema.json"
+          }
+        }
+      }
+    },
+    "require_any_field": {
+      "anyOf": [
+        {"required": ["owner"]}
+      ]
+    },
+    "fields": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
