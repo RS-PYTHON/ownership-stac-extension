@@ -1,7 +1,7 @@
 # Ownership Extension Specification
 
 - **Title:** Ownership
-- **Identifier:** <https://raw.githubusercontent.com/RS-PYTHON/ownership-stac-extension/refs/tags/v1.0.0/json-schema/schema.json>
+- **Identifier:** <https://rs-python.github.io/ownership-stac-extension/v1.0.0/schema.json>
 - **Field Name Prefix:** -
 - **Scope:** Item, Collection
 - **Extension [Maturity Classification](https://github.com/radiantearth/stac-spec/tree/master/extensions/README.md#extension-maturity):** Pilot
