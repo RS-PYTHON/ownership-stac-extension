@@ -1,13 +1,12 @@
 {
-  "stac_version": "1.0.0",
+  "stac_version": "1.1.0",
   "stac_extensions": [
-    "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json",
-    "https://stac-extensions.github.io/template/v1.0.0/schema.json"
+    "https://raw.githubusercontent.com/RS-PYTHON/ownership-stac-extension/refs/heads/feat/initial-descripiton/json-schema/schema.json"
   ],
   "type": "Collection",
-  "id": "collection",
-  "title": "A title",
-  "description": "A description",
+  "id": "alice_collection",
+  "title": "Alice's STAC collection",
+  "description": "This collection belongs to Alice",
   "license": "Apache-2.0",
   "extent": {
     "spatial": {
@@ -29,29 +28,10 @@
       ]
     }
   },
-  "template:new_field": "test",
-  "template:xyz": {
-    "x": 1,
-    "y": 2,
-    "z": 3
-  },
-  "template:another_one": [
-    1,
-    2,
-    3
-  ],
+  "owner": "alice",
   "assets": {
     "example": {
-      "href": "https://example.com/examples/file.xyz",
-      "template:new_field": "test"
-    }
-  },
-  "item_assets": {
-    "data": {
-      "roles": [
-        "data"
-      ],
-      "template:new_field": "test"
+      "href": "https://example.com/examples/file.xyz"
     }
   },
   "summaries": {
